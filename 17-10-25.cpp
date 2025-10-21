@@ -1,37 +1,44 @@
 #include <iostream>
-#include <time.h>
+#include <ctime>
 using namespace std;
 
-template <class T>
-void Init(T** arr, int _size) {
-    for (int i = 0; i < _size; i++) {
-        for (int j = 0; j < _size; j++) {
-            arr[i][j] = rand() % 5;
-        }
+void Init(int arr[], int _size);
+void Print(int arr[], int _size);
+void Chenge(int arr[], int _size);
+
+void Init(int arr[], int _size) {
+    for(int i = 0; i < _size; i++) {
+        arr[i] = rand() % 13;
     }
 }
 
-template <class T>
-void Print(T** arr, int _size) {
-    for (int i = 0; i < _size; i++) {
-        for (int j = 0; j < _size; j++) {
-            cout << arr[i][j] << " ";
-        }
-        cout << endl;
+void Print(int arr[], int _size) {
+    for(int i = 0; i < _size; i++) {
+        cout << arr[i] << "\t";
+    }
+    cout << endl;
+}
+
+void Chenge(int arr[], int _size) {
+    for(int i = 0; i < _size / 2; i++) {
+        int temp = arr[i];
+        arr[i] = arr[_size - 1 - i];
+        arr[_size - 1 - i] = temp;
     }
 }
 
 int main() {
     srand(time(NULL));
-
-    int size = 5;
-    int** arr = new int*[size];
-    for (int i = 0; i < size; i++) {
-        arr[i] = new int[size];
-    }
+    const int size = 10;
+    int arr[size];
 
     Init(arr, size);
+    cout << "Исходный массив:" << endl;
     Print(arr, size);
-
-    delete[] arr;
+    
+    Chenge(arr, size);
+    cout << "После изменения:" << endl;
+    Print(arr, size);
+    
+    return 0;
 }
